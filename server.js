@@ -2,7 +2,7 @@ const express=require("express"), http=require("http"), QRCode=require("qrcode")
 const {Server}=require("socket.io"), {Pool}=require("pg");
 const app=express(), srv=http.createServer(app), io=new Server(srv);
 const up=multer({storage:multer.memoryStorage(),limits:{fileSize:25*1024*1024}});
-app.use(express.static(require("path").join(__dirname,"public"))); app.use(express.json({limit:"20mb"}));
+app.use(express.static(__dirname));
 const AI_READY=!!process.env.OPENAI_API_KEY, DB_READY=!!process.env.DATABASE_URL;
 const MODEL=process.env.OPENAI_MODEL||"gpt-5.6-luna";
 let pool=null;if(DB_READY)pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:{rejectUnauthorized:false}});
